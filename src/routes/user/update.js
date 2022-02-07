@@ -1,6 +1,7 @@
 const express = require("express")
 const jwt = require("jsonwebtoken")
 const UserAuth = require("../../middlewares/user_token_auth")
+const User = require("../../models/User")
 const Router = express.Router()
 
 Router.post("/user", UserAuth, async (req, res, next) => {
@@ -21,10 +22,27 @@ Router.post("/user", UserAuth, async (req, res, next) => {
 
         if (username)
             req.user["username"] = username
-        if (email)
+        if (email) {
+            if (!/[a-z0-9\._]+@[a-z0-9\._]+/.test(email))
+                return res.status(400).send({
+                    error: "400-malformedEmail"
+                })
+
+            if (await User.findOne({ email }).exec())
+                return res.status(403).send({
+                    error: "403-emailAlreadyInEmail"
+                })
+
             req.user["email"] = email
-        if (password)
+        }
+        if (password) {
+            if (password.length < 6 || password.length > 16)
+                return res.status(400).send({
+                    error: "400-passwordTooShortOrTooLong"
+                })
+
             req.user["hash"] = jwt.sign(password, "webprojectsecret")
+        }
         if (bio)
             req.user["bio"] = bio
 
