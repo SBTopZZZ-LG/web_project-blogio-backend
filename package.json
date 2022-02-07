@@ -1,0 +1,31 @@
+{
+  "name": "blogio",
+  "version": "1.0.0",
+  "description": "Blog.io server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SBTopZZZ-LG/web_project-blogio-backend.git"
+  },
+  "keywords": [
+    "blogio",
+    "blog",
+    "web"
+  ],
+  "author": "SBTopZZZ-LG",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SBTopZZZ-LG/web_project-blogio-backend/issues"
+  },
+  "homepage": "https://github.com/SBTopZZZ-LG/web_project-blogio-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.0"
+  }
+}
