@@ -14,9 +14,13 @@ const schema = new Schema({
         type: String,
         required: true
     },
+    like_count: {
+        type: Number,
+        default: 0
+    },
     likes: {
-        type: Object,
-        default: {}
+        type: Array,
+        default: []
     },
     posted_at: {
         type: Date,

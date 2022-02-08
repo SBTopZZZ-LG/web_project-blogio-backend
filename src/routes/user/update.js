@@ -4,7 +4,7 @@ const UserAuth = require("../../middlewares/user_token_auth")
 const User = require("../../models/User")
 const Router = express.Router()
 
-Router.post("/user", UserAuth, async (req, res, next) => {
+Router.patch("/user", UserAuth, async (req, res, next) => {
     try {
         const body = req.body
 
