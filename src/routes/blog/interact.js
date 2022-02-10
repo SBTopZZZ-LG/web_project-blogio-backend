@@ -1,6 +1,5 @@
 const express = require("express")
 const Blog = require("../../models/Blog")
-const User = require("../../models/User")
 const UserAuth = require("../../middlewares/user_token_auth")
 const Router = express.Router()
 
