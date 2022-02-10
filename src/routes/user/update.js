@@ -28,10 +28,11 @@ Router.patch("/user", UserAuth, async (req, res, next) => {
                     error: "400-malformedEmail"
                 })
 
-            if (await User.findOne({ email }).exec())
-                return res.status(403).send({
-                    error: "403-emailAlreadyInEmail"
-                })
+            if (email !== req.user["email"])
+                if (await User.findOne({ email }).exec())
+                    return res.status(403).send({
+                        error: "403-emailAlreadyInUse"
+                    })
 
             req.user["email"] = email
         }
