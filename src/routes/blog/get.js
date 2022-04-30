@@ -77,4 +77,49 @@ Router.post("/blog/liked", UserAuth, async (req, res, next) => {
     }
 })
 
+Router.get("/blog/v2", async (req, res, next) => {
+    try {
+        return res.status(200).send({
+            result: {
+                blogs: await Blog.find({}).sort({ like_count: "desc" }).exec()
+            }
+        })
+    } catch (e) {
+        return res.status(500).send({
+            error: "500-internalError",
+            errorText: JSON.stringify(e)
+        })
+    }
+})
+Router.get("/blog/last24hrs/v2", async (req, res, next) => {
+    try {
+        var offset = Date.now() - 24 * 60 * 60 * 1000
+
+        return res.status(200).send({
+            result: {
+                blogs: await Blog.find({}).where('posted_at').gt(offset).sort({ like_count: "desc" }).exec()
+            }
+        })
+    } catch (e) {
+        return res.status(200).send({
+            error: "500-internalError",
+            errorText: JSON.stringify(e)
+        })
+    }
+})
+Router.post("/blog/liked/v2", UserAuth, async (req, res, next) => {
+    try {
+        return res.status(200).send({
+            result: {
+                blogs: await Blog.find({ likes: req.user["_id"] }).sort({ like_count: "desc" }).exec()
+            }
+        })
+    } catch (e) {
+        return res.status(500).send({
+            error: "500-internalError",
+            errorText: JSON.stringify(e)
+        })
+    }
+})
+
 module.exports = Router
